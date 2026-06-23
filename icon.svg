@@ -42,4 +42,7 @@
 
   <!-- Subtle Texture -->
   <rect width="512" height="512" rx="120" fill="white" opacity="0.03" />
+
+  <!-- Text Branding -->
+  <text x="256" y="470" font-family="Arial, sans-serif" font-size="48" font-weight="900" fill="white" text-anchor="middle" letter-spacing="2">ADEX MOSHOW</text>
 </svg>

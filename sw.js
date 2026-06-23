@@ -1,9 +1,9 @@
-const CACHE_NAME = 'adexmosho-cache-v4';
+const CACHE_NAME = 'adexmoshow-cache-v2';
 const urlsToCache = [
   'index.html',
   'style.css',
   'script.js',
-  'manifest.json',
+  'site.webmanifest',
   'icon.svg'
 ];
 

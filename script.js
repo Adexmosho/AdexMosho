@@ -171,6 +171,41 @@ contentArea.addEventListener('scroll', () => {
     }, 150); // 150ms after scrolling stops
 }, { passive: true });
 
+// Pull to Refresh Logic
+const pullRefresh = document.querySelector('#pull-to-refresh');
+let touchStart = 0;
+let touchDiff = 0;
+
+contentArea.addEventListener('touchstart', (e) => {
+    touchStart = e.touches[0].clientY;
+});
+
+contentArea.addEventListener('touchmove', (e) => {
+    if (contentArea.scrollTop === 0) {
+        touchDiff = e.touches[0].clientY - touchStart;
+        if (touchDiff > 0 && touchDiff < 100) {
+            pullRefresh.style.transform = `translateY(${touchDiff}px)`;
+        }
+    }
+});
+
+contentArea.addEventListener('touchend', () => {
+    if (touchDiff > 70 && contentArea.scrollTop === 0) {
+        // Trigger Refresh
+        pullRefresh.style.transform = 'translateY(80px)';
+
+        if (window.navigator.vibrate) window.navigator.vibrate(20);
+
+        setTimeout(() => {
+            // Simulate page reload/refresh
+            window.location.reload();
+        }, 800);
+    } else {
+        pullRefresh.style.transform = 'translateY(0)';
+    }
+    touchDiff = 0;
+});
+
 // Start 3D background
 init3D();
 

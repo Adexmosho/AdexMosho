@@ -1,0 +1,712 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>AdexMosho CarLot & Trado-medical</title>
+    <link rel="stylesheet" href="style.css">
+    <!-- Font Awesome for icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@fortawesome/fontawesome-free@6.5.1/css/all.min.css" crossorigin="anonymous">
+    <!-- Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+</head>
+<body>
+    <div id="app">
+        <!-- 3D Background Canvas -->
+        <canvas id="bg-canvas"></canvas>
+
+        <header>
+            <div class="logo">Adex<span>Mosho</span></div>
+            <div class="glow-effect"></div>
+        </header>
+
+        <main id="content">
+            <!-- Home Page -->
+            <section id="home" class="page active">
+                <div class="hero-3d">
+                    <div class="floating-card hero-glass">
+                        <div class="hero-icon-row">
+                            <i class="fas fa-car tech-glow"></i>
+                            <span class="divider">|</span>
+                            <i class="fas fa-leaf herb-glow"></i>
+                        </div>
+                        <h2>Car & Herbs</h2>
+                        <p>Where advanced engineering meets traditional healing wisdom.</p>
+                        <div class="hero-btns">
+                            <button class="btn-glow small" onclick="document.querySelector('[data-target=\'carlot\']').click()">Explore Cars</button>
+                            <button class="btn-glow small secondary" onclick="document.querySelector('[data-target=\'trado\']').click()">Herbal Care</button>
+                        </div>
+                    </div>
+                </div>
+                <div class="quick-stats">
+                    <div class="stat-item">
+                        <i class="fas fa-car"></i>
+                        <span>50+ Cars</span>
+                    </div>
+                    <div class="stat-item">
+                        <i class="fas fa-leaf"></i>
+                        <span>20+ Herbs</span>
+                    </div>
+                </div>
+
+                <!-- New About Section -->
+                <div class="home-info-section">
+                    <div class="info-card">
+                        <div class="card-icon-box blue">
+                            <i class="fas fa-history"></i>
+                        </div>
+                        <h3>Our Legacy</h3>
+                        <p>AdexMosho started with a unique vision: to bridge the gap between modern transportation and ancient wellness. For over a decade, we have provided premium automobiles while preserving the potency of traditional herbal medicine.</p>
+                    </div>
+
+                    <div class="info-card herb-bg-card">
+                        <div class="card-overlay"></div>
+                        <div class="card-content">
+                            <h3>Native Heritage</h3>
+                            <p>Our "Trado-medical" wing is rooted in deep ancestral knowledge. We source raw, organic native herbs from the heart of Africa, processed with care to maintain their natural healing properties for your holistic well-being.</p>
+                        </div>
+                    </div>
+
+                    <div class="info-card">
+                        <div class="card-icon-box green">
+                            <i class="fas fa-shield-alt"></i>
+                        </div>
+                        <h3>Quality Assurance</h3>
+                        <p>Whether it's a high-performance engine or a life-restoring herbal blend, quality is our non-negotiable standard. Every car undergoes a 200-point inspection, and every herb is verified for purity.</p>
+                    </div>
+                </div>
+
+                <div class="contact-preview">
+                    <h3>Need Assistance?</h3>
+                    <p>Our experts are available 24/7 for consultations.</p>
+                    <div class="hero-btns">
+                        <button class="btn-glow outline small" onclick="window.location.href='tel:+2348028765972'"><i class="fas fa-phone-alt"></i> Call</button>
+                        <button class="btn-glow secondary small" onclick="window.location.href='https://wa.me/2348028765972'"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Car Lot Page -->
+            <section id="carlot" class="page">
+                <div class="page-header-flex">
+                    <h2 class="section-title">Exclusive Inventory</h2>
+                    <div class="filter-icon"><i class="fas fa-sliders-h"></i></div>
+                </div>
+
+                <!-- Filter Categories -->
+                <div class="categories-scroll">
+                    <div class="category-chip active">All</div>
+                    <div class="category-chip">Luxury</div>
+                    <div class="category-chip">SUV</div>
+                    <div class="category-chip">Sports</div>
+                    <div class="category-chip">Electric</div>
+                </div>
+
+                <div class="car-grid-3">
+                    <!-- Car 1 -->
+                    <div class="card car-compact clickable-product"
+                         data-type="car"
+                         data-category="Sports"
+                         data-brand="Porsche"
+                         data-title="911 Carrera"
+                         data-price="₦120,000,000"
+                         data-img="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80"
+                         data-desc="The iconic Porsche 911 Carrera combines legendary performance with everyday usability."
+                         data-specs="Petrol | Auto | 450 HP">
+                        <div class="car-img-container">
+                            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300&q=80" alt="Porsche">
+                            <div class="heart-btn"><i class="far fa-heart"></i></div>
+                        </div>
+                        <div class="car-info-compact">
+                            <span class="brand">Porsche</span>
+                            <h4>911 Carrera</h4>
+                            <p class="price-sm">₦120M</p>
+                        </div>
+                    </div>
+                    <!-- Car 2 -->
+                    <div class="card car-compact clickable-product"
+                         data-type="car"
+                         data-category="Luxury"
+                         data-brand="Mercedes"
+                         data-title="AMG GT"
+                         data-price="₦150,000,000"
+                         data-img="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=600&q=80"
+                         data-desc="Handcrafted performance. The AMG GT is a true masterpiece of German engineering."
+                         data-specs="Petrol | Auto | 523 HP">
+                        <div class="car-img-container">
+                            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=300&q=80" alt="Mercedes">
+                            <div class="heart-btn"><i class="far fa-heart"></i></div>
+                        </div>
+                        <div class="car-info-compact">
+                            <span class="brand">Mercedes</span>
+                            <h4>AMG GT</h4>
+                            <p class="price-sm">₦150M</p>
+                        </div>
+                    </div>
+                    <!-- Car 3 -->
+                    <div class="card car-compact clickable-product"
+                         data-type="car"
+                         data-category="Sports"
+                         data-brand="Ferrari"
+                         data-title="488 Spider"
+                         data-price="₦250,000,000"
+                         data-img="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=600&q=80"
+                         data-desc="Experience the thrill of open-top driving with the unparalleled Ferrari 488 Spider."
+                         data-specs="Petrol | Auto | 661 HP">
+                        <div class="car-img-container">
+                            <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=300&q=80" alt="Ferrari">
+                            <div class="heart-btn"><i class="far fa-heart"></i></div>
+                        </div>
+                        <div class="car-info-compact">
+                            <span class="brand">Ferrari</span>
+                            <h4>488 Spider</h4>
+                            <p class="price-sm">₦250M</p>
+                        </div>
+                    </div>
+                    <!-- Car 4 -->
+                    <div class="card car-compact clickable-product"
+                         data-type="car"
+                         data-category="Sports"
+                         data-brand="Ford"
+                         data-title="Mustang GT"
+                         data-price="₦45,000,000"
+                         data-img="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=600&q=80"
+                         data-desc="American muscle at its finest. The Mustang GT delivers raw power and classic style."
+                         data-specs="Petrol | Manual | 460 HP">
+                        <div class="car-img-container">
+                            <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=300&q=80" alt="Ford">
+                            <div class="heart-btn"><i class="far fa-heart"></i></div>
+                        </div>
+                        <div class="car-info-compact">
+                            <span class="brand">Ford</span>
+                            <h4>Mustang GT</h4>
+                            <p class="price-sm">₦45M</p>
+                        </div>
+                    </div>
+                    <!-- Car 5 -->
+                    <div class="card car-compact clickable-product"
+                         data-type="car"
+                         data-category="SUV"
+                         data-brand="Lamborghini"
+                         data-title="Urus"
+                         data-price="₦220,000,000"
+                         data-img="https://images.unsplash.com/photo-1525609004556-c46c7d6cf0a3?auto=format&fit=crop&w=600&q=80"
+                         data-desc="The soul of a super sports car and the functionality of an SUV. The Urus is the world's first Super SUV."
+                         data-specs="Petrol | Auto | 641 HP">
+                        <div class="car-img-container">
+                            <img src="https://images.unsplash.com/photo-1525609004556-c46c7d6cf0a3?auto=format&fit=crop&w=300&q=80" alt="Lamborghini">
+                            <div class="heart-btn"><i class="far fa-heart"></i></div>
+                        </div>
+                        <div class="car-info-compact">
+                            <span class="brand">Lamborghini</span>
+                            <h4>Urus</h4>
+                            <p class="price-sm">₦220M</p>
+                        </div>
+                    </div>
+                    <!-- Car 6 -->
+                    <div class="card car-compact clickable-product"
+                         data-type="car"
+                         data-category="Sports"
+                         data-brand="Audi"
+                         data-title="R8 V10"
+                         data-price="₦170,000,000"
+                         data-img="https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=600&q=80"
+                         data-desc="Born on the track, built for the road. The Audi R8 V10 offers breathtaking performance."
+                         data-specs="Petrol | Auto | 562 HP">
+                        <div class="car-img-container">
+                            <img src="https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=300&q=80" alt="Audi">
+                            <div class="heart-btn"><i class="far fa-heart"></i></div>
+                        </div>
+                        <div class="car-info-compact">
+                            <span class="brand">Audi</span>
+                            <h4>R8 V10</h4>
+                            <p class="price-sm">₦170M</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Large Ad -->
+                <div class="featured-ad clickable-product"
+                     data-brand="Land Rover"
+                     data-title="Range Rover Vogue"
+                     data-price="₦180,000,000"
+                     data-img="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80"
+                     data-desc="The pinnacle of luxury SUVs. The Range Rover Vogue offers peerless comfort and off-road capability."
+                     data-specs="Diesel | Auto | 350 HP">
+                    <div class="ad-content">
+                        <span class="ad-label">Special Offer</span>
+                        <h3>Range Rover Vogue</h3>
+                        <p>Get 10% off your first luxury purchase</p>
+                        <button class="btn-glow">Claim Now</button>
+                    </div>
+                    <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=400&q=80" alt="SUV">
+                </div>
+            </section>
+
+            <!-- Chat Page -->
+            <section id="chat" class="page">
+                <!-- Chat List View -->
+                <div id="chat-list-view" class="chat-sub-page active">
+                    <div class="chat-header-main">
+                        <div class="chat-exit-btn" onclick="document.querySelector('[data-target=\'home\']').click()"><i class="fas fa-times"></i></div>
+                        <h2 class="section-title">Messages</h2>
+                        <div class="filter-icon"><i class="fas fa-search"></i></div>
+                    </div>
+
+                    <div class="chat-inbox">
+                        <!-- Chat Item 1 -->
+                        <div class="chat-item" data-chat-id="1" data-product="Porsche 911" data-price="₦120M">
+                            <div class="chat-item-img">
+                                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=100&q=80" alt="Porsche">
+                            </div>
+                            <div class="chat-item-info">
+                                <div class="item-header">
+                                    <h4>Inquiry: Porsche 911</h4>
+                                    <span class="chat-time">9:41 AM</span>
+                                </div>
+                                <p>Adex Support: Excellent choice! The 911...</p>
+                            </div>
+                            <div class="unread-badge">1</div>
+                        </div>
+
+                        <!-- Chat Item 2 -->
+                        <div class="chat-item" data-chat-id="2" data-product="Agbo Power" data-price="₦25,000">
+                            <div class="chat-item-img">
+                                <img src="https://images.unsplash.com/photo-1515486191131-8d672807e376?auto=format&fit=crop&w=100&q=80" alt="Herb">
+                            </div>
+                            <div class="chat-item-info">
+                                <div class="item-header">
+                                    <h4>Trado: Agbo Power</h4>
+                                    <span class="chat-time">Yesterday</span>
+                                </div>
+                                <p>You: Is it available for delivery?</p>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Chat Room View -->
+                <div id="chat-room-view" class="chat-sub-page">
+                    <div class="chat-header-main">
+                        <div class="chat-back-btn" id="chat-back"><i class="fas fa-chevron-left"></i></div>
+                        <div class="chat-agent-info">
+                            <div class="agent-avatar">
+                                <img id="room-product-img" src="https://ui-avatars.com/api/?name=Adex+Support&background=2563eb&color=fff" alt="Agent">
+                                <div class="online-dot"></div>
+                            </div>
+                            <div>
+                                <h3 id="room-product-title">Adex Support</h3>
+                                <p id="room-product-status">Online | Regarding Add</p>
+                            </div>
+                        </div>
+                        <div class="chat-actions-top">
+                            <a href="tel:+2348028765972" style="color: inherit;"><i class="fas fa-phone-alt"></i></a>
+                            <a href="https://wa.me/2348028765972" style="color: #10b981; margin-left: 15px;"><i class="fab fa-whatsapp"></i></a>
+                        </div>
+                    </div>
+
+                    <div class="chat-messages-container" id="chat-messages">
+                        <!-- Messages are injected here -->
+                    </div>
+
+                    <div class="chat-input-area">
+                        <button class="attach-btn"><i class="fas fa-plus"></i></button>
+                        <div class="input-wrapper">
+                            <input type="text" id="chat-input" placeholder="Type a message...">
+                        </div>
+                        <button class="send-btn" id="send-message"><i class="fas fa-paper-plane"></i></button>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Trado-medical Page -->
+            <section id="trado" class="page">
+                <div class="page-header-flex">
+                    <h2 class="section-title">Natural Healing</h2>
+                    <div class="filter-icon"><i class="fas fa-mortar-pestle"></i></div>
+                </div>
+
+                <div class="trado-grid-3">
+                    <!-- Herb 1 -->
+                    <div class="card medical-compact clickable-product"
+                         data-brand="Herbal"
+                         data-title="Pure Ginger"
+                         data-price="₦15,000"
+                         data-img="https://images.unsplash.com/photo-1540348563548-69450438ec6e?auto=format&fit=crop&w=600&q=80"
+                         data-desc="100% organic Ginger extract. Ideal for digestive health and anti-inflammatory support."
+                         data-specs="Organic | Raw | 250g">
+                        <div class="herb-img-container">
+                            <img src="https://images.unsplash.com/photo-1540348563548-69450438ec6e?auto=format&fit=crop&w=300&q=80" alt="Ginger">
+                        </div>
+                        <div class="herb-info-compact">
+                            <span class="category">Internal</span>
+                            <h4>Pure Ginger</h4>
+                            <p class="rating"><i class="fas fa-star"></i> 4.9</p>
+                        </div>
+                    </div>
+                    <!-- Herb 2 -->
+                    <div class="card medical-compact clickable-product"
+                         data-brand="Detox"
+                         data-title="Zobo Extract"
+                         data-price="₦12,000"
+                         data-img="https://images.unsplash.com/photo-1515486191131-8d672807e376?auto=format&fit=crop&w=600&q=80"
+                         data-desc="Refreshing and healthy. Hibiscus extract rich in vitamin C and antioxidants."
+                         data-specs="Cold Pressed | Vegan | 500ml">
+                        <div class="herb-img-container">
+                            <img src="https://images.unsplash.com/photo-1515486191131-8d672807e376?auto=format&fit=crop&w=300&q=80" alt="Hibiscus">
+                        </div>
+                        <div class="herb-info-compact">
+                            <span class="category">Detox</span>
+                            <h4>Zobo Extract</h4>
+                            <p class="rating"><i class="fas fa-star"></i> 4.8</p>
+                        </div>
+                    </div>
+                    <!-- Herb 3 -->
+                    <div class="card medical-compact clickable-product"
+                         data-brand="Skincare"
+                         data-title="Aloe Vera"
+                         data-price="₦20,000"
+                         data-img="https://images.unsplash.com/photo-1615485290382-441e4d019cb5?auto=format&fit=crop&w=600&q=80"
+                         data-desc="Pure Aloe Vera gel for skin hydration and soothing relief from burns or irritations."
+                         data-specs="Natural | Fragrance Free | 200ml">
+                        <div class="herb-img-container">
+                            <img src="https://images.unsplash.com/photo-1615485290382-441e4d019cb5?auto=format&fit=crop&w=300&q=80" alt="Aloe">
+                        </div>
+                        <div class="herb-info-compact">
+                            <span class="category">Skin</span>
+                            <h4>Aloe Vera</h4>
+                            <p class="rating"><i class="fas fa-star"></i> 5.0</p>
+                        </div>
+                    </div>
+                    <!-- Herb 4 -->
+                    <div class="card medical-compact clickable-product"
+                         data-brand="Strength"
+                         data-title="Agbo Power"
+                         data-price="₦25,000"
+                         data-img="https://images.unsplash.com/photo-1515486191131-8d672807e376?auto=format&fit=crop&w=300&q=80"
+                         data-desc="A potent blend of traditional roots and herbs designed for maximum energy and immunity."
+                         data-specs="Ancient Formula | High Potency | 1L">
+                        <div class="herb-img-container">
+                            <img src="https://images.unsplash.com/photo-1515486191131-8d672807e376?auto=format&fit=crop&w=300&q=80" alt="Roots">
+                        </div>
+                        <div class="herb-info-compact">
+                            <span class="category">Bones</span>
+                            <h4>Agbo Power</h4>
+                            <p class="rating"><i class="fas fa-star"></i> 4.7</p>
+                        </div>
+                    </div>
+                    <!-- Herb 5 -->
+                    <div class="card medical-compact clickable-product"
+                         data-brand="Wellness"
+                         data-title="Turmeric"
+                         data-price="₦10,000"
+                         data-img="https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=600&q=80"
+                         data-desc="High-curcumin Turmeric powder. Perfect for boosting immunity and joint health."
+                         data-specs="Pure Powder | Non-GMO | 100g">
+                        <div class="herb-img-container">
+                            <img src="https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=300&q=80" alt="Turmeric">
+                        </div>
+                        <div class="herb-info-compact">
+                            <span class="category">Immunity</span>
+                            <h4>Turmeric</h4>
+                            <p class="rating"><i class="fas fa-star"></i> 4.9</p>
+                        </div>
+                    </div>
+                    <!-- Herb 6 -->
+                    <div class="card medical-compact clickable-product"
+                         data-brand="Extracts"
+                         data-title="Moringa Oil"
+                         data-price="₦30,000"
+                         data-img="https://images.unsplash.com/photo-1628536340321-72921b7f9411?auto=format&fit=crop&w=600&q=80"
+                         data-desc="Cold-pressed Moringa oil, known as 'the miracle tree' oil, for hair and skin vitality."
+                         data-specs="Cold Pressed | 100% Pure | 100ml">
+                        <div class="herb-img-container">
+                            <img src="https://images.unsplash.com/photo-1628536340321-72921b7f9411?auto=format&fit=crop&w=300&q=80" alt="Moringa">
+                        </div>
+                        <div class="herb-info-compact">
+                            <span class="category">General</span>
+                            <h4>Moringa Oil</h4>
+                            <p class="rating"><i class="fas fa-star"></i> 4.8</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Featured Medical Service -->
+                <div class="featured-trado">
+                    <div class="trado-content">
+                        <span class="ad-label">Specialist</span>
+                        <h3>Home Consultation</h3>
+                        <p>Book a physical visit with our top Trado-Medical practitioners.</p>
+                        <button class="btn-glow">Book Now</button>
+                    </div>
+                    <div class="trado-icon-large">
+                        <i class="fas fa-hand-holding-heart"></i>
+                    </div>
+                </div>
+            </section>
+
+            <!-- Profile Page -->
+            <section id="profile" class="page">
+                <div class="profile-container">
+                    <!-- Profile Cover -->
+                    <div class="profile-cover">
+                        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80" alt="Cover">
+                        <button class="edit-cover-btn"><i class="fas fa-camera"></i></button>
+                    </div>
+
+                    <div class="profile-header-main">
+                        <div class="profile-avatar-wrapper">
+                            <div class="profile-avatar">
+                                <img src="https://ui-avatars.com/api/?name=Adex+Mosho&background=eff6ff&color=2563eb&size=200" alt="User">
+                            </div>
+                            <div class="online-indicator"></div>
+                            <button class="edit-avatar-btn"><i class="fas fa-pen"></i></button>
+                        </div>
+                        <div class="profile-name-section">
+                            <h2>Adex Mosho <i class="fas fa-check-circle verified-icon"></i></h2>
+                            <p>@adex_official</p>
+                            <span class="membership-badge"><i class="fas fa-crown"></i> Gold Member</span>
+                        </div>
+                    </div>
+
+                    <div class="profile-tabs">
+                        <div class="profile-tab active" data-tab="details">Details</div>
+                        <div class="profile-tab" data-tab="activity">Activity</div>
+                        <div class="profile-tab" data-tab="settings">Settings</div>
+                    </div>
+
+                    <!-- Details Tab Content -->
+                    <div id="tab-details" class="tab-content active">
+                        <div class="detail-group">
+                            <div class="group-header">
+                                <h3>Personal Info</h3>
+                                <button class="text-btn">Edit</button>
+                            </div>
+                            <div class="detail-item-flex">
+                                <i class="fas fa-user-circle"></i>
+                                <div>
+                                    <label>Full Name</label>
+                                    <p>Adex Mosho Professional</p>
+                                </div>
+                            </div>
+                            <div class="detail-item-flex">
+                                <i class="fas fa-envelope"></i>
+                                <div>
+                                    <label>Email Address</label>
+                                    <p>contact@adexmosho.com</p>
+                                </div>
+                            </div>
+                            <div class="detail-item-flex">
+                                <i class="fas fa-phone-alt"></i>
+                                <div>
+                                    <label>Phone Number</label>
+                                    <p>+234 802 876 5972</p>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <h3>Membership Progress</h3>
+                            <div class="progress-container">
+                                <div class="progress-info">
+                                    <span>Gold Tier</span>
+                                    <span>80% to Platinum</span>
+                                </div>
+                                <div class="progress-bar">
+                                    <div class="progress-fill" style="width: 80%;"></div>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="detail-group">
+                            <h3>Wallet & Points</h3>
+                            <div class="wallet-card">
+                                <div class="wallet-info">
+                                    <label>Available Balance</label>
+                                    <p class="balance">₦2,450,000.00</p>
+                                </div>
+                                <div class="wallet-points">
+                                    <label>Loyalty Points</label>
+                                    <p>5,420 pts</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Activity Tab Content (Hidden by default) -->
+                    <div id="tab-activity" class="tab-content">
+                        <div class="detail-group">
+                            <h3>Recent Activity</h3>
+                            <ul class="activity-list">
+                                <li>
+                                    <div class="act-icon car"><i class="fas fa-car"></i></div>
+                                    <div class="act-details">
+                                        <p>Viewed <strong>Porsche 911</strong></p>
+                                        <span>2 hours ago</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="act-icon herb"><i class="fas fa-leaf"></i></div>
+                                    <div class="act-details">
+                                        <p>Herb consultation: <strong>Agbo Power</strong></p>
+                                        <span>Yesterday</span>
+                                    </div>
+                                </li>
+                                <li>
+                                    <div class="act-icon order"><i class="fas fa-shopping-bag"></i></div>
+                                    <div class="act-details">
+                                        <p>Order Placed: <strong>Aloe Vera Extract</strong></p>
+                                        <span>3 days ago</span>
+                                    </div>
+                                </li>
+                            </ul>
+                        </div>
+                    </div>
+
+                    <!-- Settings Tab Content (Hidden by default) -->
+                    <div id="tab-settings" class="tab-content">
+                        <div class="detail-group">
+                            <h3>App Preferences</h3>
+                            <div class="setting-item">
+                                <span>Push Notifications</span>
+                                <label class="switch">
+                                    <input type="checkbox" checked>
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                            <div class="setting-item">
+                                <span>Dark Mode</span>
+                                <label class="switch">
+                                    <input type="checkbox">
+                                    <span class="slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                        <div class="detail-group">
+                            <h3>Security</h3>
+                            <button class="btn-glow outline full">Change Password</button>
+                            <button class="btn-glow outline full mt-10">Enable 2FA</button>
+                        </div>
+                    </div>
+
+                    <button class="btn-glow logout-btn">
+                        <i class="fas fa-sign-out-alt"></i> Sign Out
+                    </button>
+                </div>
+            </section>
+        </main>
+
+        <nav class="bottom-nav">
+            <div class="nav-item active" data-target="home">
+                <i class="fas fa-home"></i>
+                <span>Home</span>
+            </div>
+            <div class="nav-item" data-target="carlot">
+                <i class="fas fa-car"></i>
+                <span>Car Lot</span>
+            </div>
+            <div class="nav-item" data-target="chat">
+                <i class="fas fa-comment-dots"></i>
+                <span>Chat</span>
+            </div>
+            <div class="nav-item" data-target="trado">
+                <i class="fas fa-heartbeat"></i>
+                <span>Trado</span>
+            </div>
+            <div class="nav-item" data-target="profile">
+                <i class="fas fa-user"></i>
+                <span>Profile</span>
+            </div>
+            <div class="nav-indicator"></div>
+        </nav>
+    </div>
+
+    <!-- Advanced Filter Drawer -->
+    <div id="filter-drawer" class="drawer-overlay">
+        <div class="drawer-content">
+            <div class="drawer-header">
+                <h3>Advanced Filters</h3>
+                <button class="close-drawer"><i class="fas fa-times"></i></button>
+            </div>
+
+            <div class="drawer-body">
+                <div class="filter-group">
+                    <label>Sort By</label>
+                    <div class="filter-options">
+                        <button class="option-btn active">Recommended</button>
+                        <button class="option-btn">Newest First</button>
+                        <button class="option-btn">Price: Low to High</button>
+                        <button class="option-btn">Price: High to Low</button>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>Price Range (Naira)</label>
+                    <div class="price-inputs">
+                        <input type="number" placeholder="Min" id="price-min">
+                        <span>-</span>
+                        <input type="number" placeholder="Max" id="price-max">
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>Transmission</label>
+                    <div class="chip-group">
+                        <div class="chip-select">Automatic</div>
+                        <div class="chip-select">Manual</div>
+                    </div>
+                </div>
+
+                <div class="filter-group">
+                    <label>Fuel Type</label>
+                    <div class="chip-group">
+                        <div class="chip-select">Petrol</div>
+                        <div class="chip-select">Diesel</div>
+                        <div class="chip-select">Electric</div>
+                        <div class="chip-select">Hybrid</div>
+                    </div>
+                </div>
+            </div>
+
+            <div class="drawer-footer">
+                <button class="btn-glow outline" id="reset-filters">Reset All</button>
+                <button class="btn-glow" id="apply-filters">Apply Filters</button>
+            </div>
+        </div>
+    </div>
+
+    <!-- Product Detail Overlay -->
+    <div id="product-detail-overlay" class="detail-overlay">
+        <div class="detail-container">
+            <button class="close-detail"><i class="fas fa-times"></i></button>
+            <div class="detail-img-box">
+                <img id="detail-img" src="" alt="Product">
+            </div>
+            <div class="detail-content">
+                <div class="detail-header-row">
+                    <div>
+                        <span id="detail-brand" class="brand-tag">Brand</span>
+                        <h2 id="detail-title">Product Name</h2>
+                    </div>
+                    <div id="detail-price" class="price-tag">₦0.00</div>
+                </div>
+                <div class="detail-specs-row" id="detail-specs">
+                    <!-- Specs will be injected here -->
+                </div>
+                <div class="detail-description">
+                    <h3>About this product</h3>
+                    <p id="detail-desc">Full description goes here.</p>
+                </div>
+                <div class="detail-actions">
+                    <button class="btn-glow primary-action">Reserve Now</button>
+                    <button class="btn-glow outline secondary-action">Chat with Agent</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Three.js for 3D Background -->
+    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js" crossorigin="anonymous"></script>
+    <script src="script.js"></script>
+</body>
+</html>

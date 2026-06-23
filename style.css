@@ -95,7 +95,69 @@ header.nav-hidden {
     -webkit-text-fill-color: transparent;
 }
 
-/* Pull to Refresh Styling */
+/* PWA Install Banner */
+.install-banner {
+    position: fixed;
+    top: -150px;
+    left: 20px;
+    right: 20px;
+    background: rgba(255, 255, 255, 0.95);
+    backdrop-filter: blur(20px);
+    border-radius: 24px;
+    padding: 15px 20px;
+    display: flex;
+    flex-direction: column;
+    gap: 15px;
+    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
+    z-index: 9999;
+    border: 1px solid rgba(255, 255, 255, 0.5);
+    transition: top 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+}
+
+.install-banner.show {
+    top: 20px;
+}
+
+.install-content {
+    display: flex;
+    align-items: center;
+    gap: 15px;
+}
+
+.install-icon {
+    width: 50px;
+    height: 50px;
+    border-radius: 12px;
+}
+
+.install-text strong {
+    display: block;
+    font-size: 1rem;
+    color: var(--text-main);
+}
+
+.install-text p {
+    font-size: 0.8rem;
+    color: var(--text-dim);
+}
+
+.install-actions {
+    display: flex;
+    gap: 10px;
+}
+
+.btn-close {
+    flex: 1;
+    background: #f1f5f9;
+    border: none;
+    padding: 10px;
+    border-radius: 12px;
+    font-weight: 600;
+    color: var(--text-dim);
+    font-size: 0.85rem;
+}
+
+/* Rest of the file... */
 .pull-refresh-container {
     position: absolute;
     top: -50px;

@@ -208,6 +208,59 @@ contentArea.addEventListener('touchend', () => {
     touchDiff = 0;
 });
 
+// PWA Install Logic
+let deferredPrompt;
+const installBanner = document.querySelector('#install-banner');
+const installBtn = document.querySelector('#install-btn');
+const installClose = document.querySelector('#install-close');
+const profileInstallRow = document.querySelector('#profile-install-row');
+const profileInstallBtn = document.querySelector('#profile-install-btn');
+
+window.addEventListener('beforeinstallprompt', (e) => {
+    // Prevent the mini-infobar from appearing on mobile
+    e.preventDefault();
+    // Stash the event so it can be triggered later.
+    deferredPrompt = e;
+
+    // Show the custom install banner
+    setTimeout(() => {
+        installBanner.classList.add('show');
+    }, 2000); // Show after 2 seconds
+
+    // Show the install button in profile
+    if (profileInstallRow) profileInstallRow.style.display = 'flex';
+});
+
+async function triggerInstall() {
+    if (deferredPrompt) {
+        // Show the install prompt
+        deferredPrompt.prompt();
+        // Wait for the user to respond to the prompt
+        const { outcome } = await deferredPrompt.userChoice;
+        console.log(`User response to the install prompt: ${outcome}`);
+        // We've used the prompt, and can't use it again, throw it away
+        deferredPrompt = null;
+        // Hide the banner and profile row
+        installBanner.classList.remove('show');
+        if (profileInstallRow) profileInstallRow.style.display = 'none';
+    }
+}
+
+installBtn.addEventListener('click', triggerInstall);
+if (profileInstallBtn) profileInstallBtn.addEventListener('click', triggerInstall);
+
+installClose.addEventListener('click', () => {
+    installBanner.classList.remove('show');
+});
+
+// Check if app is already installed
+window.addEventListener('appinstalled', () => {
+    installBanner.classList.remove('show');
+    if (profileInstallRow) profileInstallRow.style.display = 'none';
+    deferredPrompt = null;
+    console.log('PWA was installed');
+});
+
 // Start 3D background
 init3D();
 

@@ -95,66 +95,72 @@ header.nav-hidden {
     -webkit-text-fill-color: transparent;
 }
 
-/* PWA Install Banner */
+/* PWA Install Banner - Compact & Elegant */
 .install-banner {
     position: fixed;
-    top: -150px;
-    left: 20px;
-    right: 20px;
-    background: rgba(255, 255, 255, 0.95);
-    backdrop-filter: blur(20px);
-    border-radius: 24px;
-    padding: 15px 20px;
+    bottom: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: rgba(255, 255, 255, 0.9);
+    backdrop-filter: blur(15px);
+    border-radius: 40px;
+    padding: 8px 8px 8px 15px;
     display: flex;
-    flex-direction: column;
-    gap: 15px;
-    box-shadow: 0 15px 35px rgba(0, 0, 0, 0.15);
-    z-index: 9999;
-    border: 1px solid rgba(255, 255, 255, 0.5);
-    transition: top 0.6s cubic-bezier(0.23, 1, 0.32, 1);
+    align-items: center;
+    gap: 12px;
+    box-shadow: 0 10px 30px rgba(0, 0, 0, 0.15);
+    z-index: 10000;
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    transition: bottom 0.6s cubic-bezier(0.34, 1.56, 0.64, 1);
+    width: auto;
+    min-width: 280px;
 }
 
 .install-banner.show {
-    top: 20px;
+    bottom: 80px; /* Sits above the nav */
 }
 
 .install-content {
     display: flex;
     align-items: center;
-    gap: 15px;
+    gap: 10px;
 }
 
 .install-icon {
-    width: 50px;
-    height: 50px;
-    border-radius: 12px;
+    width: 32px;
+    height: 32px;
+    border-radius: 8px;
 }
 
 .install-text strong {
     display: block;
-    font-size: 1rem;
+    font-size: 0.85rem;
     color: var(--text-main);
 }
 
 .install-text p {
-    font-size: 0.8rem;
-    color: var(--text-dim);
+    display: none; /* Hide subtitle for extra compact look */
 }
 
 .install-actions {
     display: flex;
-    gap: 10px;
+    align-items: center;
 }
 
 .btn-close {
-    flex: 1;
-    background: #f1f5f9;
+    background: none;
     border: none;
-    padding: 10px;
-    border-radius: 12px;
-    font-weight: 600;
+    padding: 8px;
     color: var(--text-dim);
-    font-size: 0.85rem;
+    font-size: 1rem;
+    cursor: pointer;
+}
+
+.install-banner .btn-glow.small {
+    padding: 8px 18px;
+    font-size: 0.8rem;
+    width: auto;
+    border-radius: 30px;
 }
 
 /* Rest of the file... */

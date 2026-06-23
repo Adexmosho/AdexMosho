@@ -1,9 +1,10 @@
-const CACHE_NAME = 'adexmosho-cache-v3';
+const CACHE_NAME = 'adexmosho-cache-v4';
 const urlsToCache = [
   'index.html',
   'style.css',
   'script.js',
-  'manifest.json'
+  'manifest.json',
+  'icon.svg'
 ];
 
 self.addEventListener('install', event => {

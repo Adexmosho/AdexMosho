@@ -208,6 +208,15 @@ contentArea.addEventListener('touchend', () => {
     touchDiff = 0;
 });
 
+// Service Worker Registration
+if ('serviceWorker' in navigator) {
+    window.addEventListener('load', () => {
+        navigator.serviceWorker.register('sw.js')
+            .then(reg => console.log('Service Worker registered', reg))
+            .catch(err => console.log('Service Worker registration failed', err));
+    });
+}
+
 // PWA Install Logic
 let deferredPrompt;
 const installBanner = document.querySelector('#install-banner');

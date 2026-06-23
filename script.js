@@ -6,148 +6,20 @@ navItems.forEach(item => {
     item.addEventListener('click', () => {
         const target = item.getAttribute('data-target');
 
-        // Update Nav UI
+        // Update nav state
         navItems.forEach(i => i.classList.remove('active'));
         item.classList.add('active');
 
-        // Switch Pages
+        // Show the selected page
         pages.forEach(page => {
-            page.classList.remove('active');
-            if (page.id === target) {
-                page.classList.add('active');
-            }
+            page.classList.toggle('active', page.id === target);
         });
 
-        // Trigger haptic-like vibration if supported
         if (window.navigator.vibrate) {
             window.navigator.vibrate(10);
         }
     });
 });
-
-// Three.js 3D Background (Advanced Nature & Tech Theme)
-function init3D() {
-    const canvas = document.querySelector('#bg-canvas');
-    const scene = new THREE.Scene();
-    const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-    const renderer = new THREE.WebGLRenderer({ canvas: canvas, alpha: true, antialias: true });
-
-    renderer.setPixelRatio(window.devicePixelRatio);
-    renderer.setSize(window.innerWidth, window.innerHeight);
-    camera.position.setZ(40);
-
-    // Group for Tech (Car) elements
-    const techGroup = new THREE.Group();
-    // Group for Nature (Herb) elements
-    const natureGroup = new THREE.Group();
-    scene.add(techGroup);
-    scene.add(natureGroup);
-
-    // TECH ELEMENTS: Geometric Floating Nodes (Representing car engineering)
-    const cubeGeo = new THREE.BoxGeometry(2, 2, 2);
-    const techMat = new THREE.MeshPhongMaterial({
-        color: 0x2563eb,
-        wireframe: true,
-        transparent: true,
-        opacity: 0.3
-    });
-
-    for(let i=0; i<15; i++) {
-        const cube = new THREE.Mesh(cubeGeo, techMat);
-        cube.position.set(
-            THREE.MathUtils.randFloatSpread(60),
-            THREE.MathUtils.randFloatSpread(100),
-            THREE.MathUtils.randFloatSpread(40)
-        );
-        cube.rotation.set(Math.random(), Math.random(), Math.random());
-        techGroup.add(cube);
-    }
-
-    // NATURE ELEMENTS: Floating organic shapes (Representing herbs)
-    const leafGeo = new THREE.TorusKnotGeometry(1.5, 0.4, 64, 8, 2, 3);
-    const natureMat = new THREE.MeshPhongMaterial({
-        color: 0x10b981,
-        transparent: true,
-        opacity: 0.2,
-        shininess: 100
-    });
-
-    for(let i=0; i<15; i++) {
-        const leaf = new THREE.Mesh(leafGeo, natureMat);
-        leaf.position.set(
-            THREE.MathUtils.randFloatSpread(60),
-            THREE.MathUtils.randFloatSpread(100),
-            THREE.MathUtils.randFloatSpread(40)
-        );
-        leaf.rotation.set(Math.random(), Math.random(), Math.random());
-        natureGroup.add(leaf);
-    }
-
-    // LIGHTING for the 3D materials
-    const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-    scene.add(ambientLight);
-
-    const pointLight = new THREE.PointLight(0x2563eb, 2);
-    pointLight.position.set(20, 20, 20);
-    scene.add(pointLight);
-
-    const greenLight = new THREE.PointLight(0x10b981, 2);
-    greenLight.position.set(-20, -20, 20);
-    scene.add(greenLight);
-
-    // Dynamic Particle System (Pollen/Data dust)
-    const partGeo = new THREE.BufferGeometry();
-    const partCount = 800;
-    const posArray = new Float32Array(partCount * 3);
-    const colorArray = new Float32Array(partCount * 3);
-
-    for(let i=0; i<partCount * 3; i++) {
-        posArray[i] = (Math.random() - 0.5) * 120;
-        // Alternating colors between Tech Blue and Nature Green
-        if (i % 6 < 3) {
-            colorArray[i] = i % 2 === 0 ? 0.14 : 0.38;
-        } else {
-            colorArray[i] = i % 2 === 0 ? 0.06 : 0.72;
-        }
-    }
-    partGeo.setAttribute('position', new THREE.BufferAttribute(posArray, 3));
-    partGeo.setAttribute('color', new THREE.BufferAttribute(colorArray, 3));
-
-    const partMat = new THREE.PointsMaterial({
-        size: 0.15,
-        vertexColors: true,
-        transparent: true,
-        opacity: 0.6
-    });
-    const particles = new THREE.Points(partGeo, partMat);
-    scene.add(particles);
-
-    function animate() {
-        requestAnimationFrame(animate);
-
-        techGroup.rotation.y += 0.002;
-        techGroup.children.forEach(c => c.rotation.x += 0.01);
-
-        natureGroup.rotation.y -= 0.001;
-        natureGroup.rotation.x += 0.0005;
-        natureGroup.children.forEach(c => {
-            c.rotation.z += 0.01;
-            c.position.y += Math.sin(Date.now() * 0.001) * 0.01;
-        });
-
-        particles.rotation.y += 0.0005;
-
-        renderer.render(scene, camera);
-    }
-
-    window.addEventListener('resize', () => {
-        camera.aspect = window.innerWidth / window.innerHeight;
-        camera.updateProjectionMatrix();
-        renderer.setSize(window.innerWidth, window.innerHeight);
-    });
-
-    animate();
-}
 
 // Scroll Auto-Hide Logic for Header and Bottom Nav
 const contentArea = document.querySelector('#content');
@@ -208,13 +80,20 @@ contentArea.addEventListener('touchend', () => {
     touchDiff = 0;
 });
 
-// Service Worker Registration
+// Service Worker Registration (deferred to idle to avoid blocking startup)
 if ('serviceWorker' in navigator) {
-    window.addEventListener('load', () => {
+    const registerSW = () => {
         navigator.serviceWorker.register('sw.js')
             .then(reg => console.log('Service Worker registered', reg))
             .catch(err => console.log('Service Worker registration failed', err));
-    });
+    };
+
+    if ('requestIdleCallback' in window) {
+        requestIdleCallback(registerSW, { timeout: 5000 });
+    } else {
+        // Fallback: register a few seconds after load
+        window.addEventListener('load', () => setTimeout(registerSW, 3000));
+    }
 }
 
 // PWA Install Logic
@@ -270,8 +149,53 @@ window.addEventListener('appinstalled', () => {
     console.log('PWA was installed');
 });
 
-// Start 3D background
-init3D();
+// Defer heavy loading until the page is interactive and add deferred image loading
+window.addEventListener('DOMContentLoaded', () => {
+    // Delay non-blocking initialization slightly after DOM readiness
+    setTimeout(() => {
+        // Defer remote images: replace src with tiny placeholder and load when visible
+        try {
+            const placeholder = 'data:image/svg+xml;utf8,<svg xmlns="http://www.w3.org/2000/svg" width="10" height="6"></svg>';
+            document.querySelectorAll('img').forEach(img => {
+                const src = img.getAttribute('src');
+                if (src && src.startsWith('https://') && !img.hasAttribute('data-src')) {
+                    img.setAttribute('data-src', src);
+                    img.setAttribute('src', placeholder);
+                    img.loading = 'lazy';
+                    img.classList.add('defer-img');
+                }
+            });
+
+            if ('IntersectionObserver' in window) {
+                const io = new IntersectionObserver((entries, obs) => {
+                    entries.forEach(entry => {
+                        if (entry.isIntersecting) {
+                            const el = entry.target;
+                            const dataSrc = el.getAttribute('data-src');
+                            if (dataSrc) {
+                                el.src = dataSrc;
+                                el.removeAttribute('data-src');
+                            }
+                            obs.unobserve(el);
+                        }
+                    });
+                }, { rootMargin: '200px' });
+
+                document.querySelectorAll('img.defer-img').forEach(i => io.observe(i));
+            } else {
+                // Fallback: load deferred images after a short delay
+                setTimeout(() => {
+                    document.querySelectorAll('img.defer-img').forEach(i => {
+                        const ds = i.getAttribute('data-src');
+                        if (ds) i.src = ds;
+                    });
+                }, 600);
+            }
+        } catch (e) {
+            console.warn('Deferred image loader failed', e);
+        }
+    }, 250);
+});
 
 // Card 3D Tilt Effect - Refined
 document.querySelectorAll('.card, .floating-card').forEach(card => {
@@ -289,6 +213,25 @@ document.querySelectorAll('.card, .floating-card').forEach(card => {
 
     card.addEventListener('mouseleave', () => {
         card.style.transform = `perspective(1000px) rotateX(0) rotateY(0)`;
+    });
+});
+
+// Startup Tab Switch Logic
+const startupTabs = document.querySelectorAll('.startup-tab');
+const startupPanels = document.querySelectorAll('.startup-panel');
+
+startupTabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+        const target = tab.getAttribute('data-target');
+
+        startupTabs.forEach(t => t.classList.remove('active'));
+        tab.classList.add('active');
+
+        startupPanels.forEach(panel => {
+            panel.classList.toggle('active', panel.id === target);
+        });
+
+        if (window.navigator.vibrate) window.navigator.vibrate(10);
     });
 });
 

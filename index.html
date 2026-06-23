@@ -7,20 +7,26 @@
     <link rel="icon" type="image/svg+xml" href="icon.svg">
     <link rel="apple-touch-icon" href="icon.svg">
     <link rel="stylesheet" href="style.css">
-    <link rel="manifest" href="site.webmanifest">
+    <link rel="manifest" href="./site.webmanifest">
     <meta name="theme-color" content="#2563eb">
     <meta name="mobile-web-app-capable" content="yes">
     <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <!-- Font Awesome for icons -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" integrity="sha512-9usAa10IRO0HhonpyAIVpjrylPvoDwiPUiKdWk5t3PyolY1cOd4DSE0Ga+ri4AuTroPR5aQvXU9xC6qOPnzFeg==" crossorigin="anonymous" referrerpolicy="no-referrer" />
-    <!-- Google Fonts -->
-    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
+    <!-- Critical inline CSS (above-the-fold) -->
+    <style>
+    /* Critical styles inlined to prevent render-blocking */
+    :root{--primary:#2563eb;--bg-light:#f1f5f9;--text-main:#0f172a}
+    html,body{background:var(--bg-light);color:var(--text-main);margin:0;height:100%;font-family:system-ui,-apple-system,BlinkMacSystemFont,Segoe UI,Roboto,Helvetica,Arial,sans-serif}
+    header{position:fixed;top:15px;left:50%;transform:translateX(-50%);padding:10px 20px;border-radius:30px;background:rgba(255,255,255,0.7)}
+    .logo{font-weight:800;color:var(--text-main)}
+    #content{padding:80px 20px 80px;min-height:100vh}
+    .floating-card{border-radius:20px;padding:20px;background:#fff}
+    </style>
+
+    <!-- Preload main startup image -->
+    <link rel="preload" as="image" href="Adewale.jpeg">
 </head>
 <body>
     <div id="app">
-        <!-- 3D Background Canvas -->
-        <canvas id="bg-canvas"></canvas>
-
         <!-- PWA Install Banner -->
         <div id="install-banner" class="install-banner">
             <div class="install-content">
@@ -47,6 +53,55 @@
             </div>
             <!-- Home Page -->
             <section id="home" class="page active">
+                <div class="startup-section">
+                    <div class="startup-tabs">
+                        <button class="startup-tab active" data-target="startup-details">Details</button>
+                        <button class="startup-tab" data-target="startup-advantages">Advantages</button>
+                        <button class="startup-tab" data-target="startup-trust">Trust</button>
+                    </div>
+                    <div class="startup-panels">
+                        <div id="startup-details" class="startup-panel active">
+                            <div class="startup-card">
+                                <div class="adewale-scene">
+                                    <div class="adewale-lights">
+                                        <span class="light-orb light-orb-1"></span>
+                                        <span class="light-orb light-orb-2"></span>
+                                        <span class="light-orb light-orb-3"></span>
+                                    </div>
+                                    <div class="adewale-image-wrapper">
+                                        <img src="Adewale.jpeg" alt="Adewale" class="adewale-img">
+                                    </div>
+                                </div>
+                                <div class="startup-copy">
+                                    <h3>Welcome to AdexMoshow</h3>
+                                    <p>AdexMoshow combines premium car shopping with Trado-Medical wellness in one immersive PWA experience. This first tab shows a 3D-inspired launch view around the featured image, reinforcing brand identity with motion and light.</p>
+                                </div>
+                            </div>
+                        </div>
+                        <div id="startup-advantages" class="startup-panel">
+                            <div class="startup-card">
+                                <h3>Advantages</h3>
+                                <p>Discover a curated inventory of luxury vehicles, native herbal remedies, and seamless contact support. Every section is designed to feel premium, modern, and easy to navigate.</p>
+                                <ul class="startup-list">
+                                    <li>Unified car & wellness marketplace</li>
+                                    <li>Animated startup tabs with moving lights</li>
+                                    <li>Fast mobile-first PWA interactions</li>
+                                </ul>
+                            </div>
+                        </div>
+                        <div id="startup-trust" class="startup-panel">
+                            <div class="startup-card">
+                                <h3>Trust</h3>
+                                <p>AdexMoshow is built to earn confidence with transparent pricing, clear product details, and direct communication channels. The experience emphasizes quality assurance for both automotive and traditional medicine offerings.</p>
+                                <ul class="startup-list">
+                                    <li>24/7 support and contact options</li>
+                                    <li>Verified product descriptions and pricing</li>
+                                    <li>Quality assurance and native sourcing narrative</li>
+                                </ul>
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="hero-3d">
                     <div class="floating-card hero-glass">
                         <div class="hero-icon-row">
@@ -136,11 +191,11 @@
                          data-brand="Porsche"
                          data-title="911 Carrera"
                          data-price="₦120,000,000"
-                         data-img="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=600&q=80"
+                         data-img="lib/porsche.jpg"
                          data-desc="The iconic Porsche 911 Carrera combines legendary performance with everyday usability."
                          data-specs="Petrol | Auto | 450 HP">
                         <div class="car-img-container">
-                            <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=300&q=80" alt="Porsche">
+                            <img loading="lazy" src="lib/porsche.jpg" alt="Porsche">
                             <div class="heart-btn"><i class="far fa-heart"></i></div>
                         </div>
                         <div class="car-info-compact">
@@ -156,11 +211,11 @@
                          data-brand="Mercedes"
                          data-title="AMG GT"
                          data-price="₦150,000,000"
-                         data-img="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=600&q=80"
+                         data-img="lib/mercedes.jpg"
                          data-desc="Handcrafted performance. The AMG GT is a true masterpiece of German engineering."
                          data-specs="Petrol | Auto | 523 HP">
                         <div class="car-img-container">
-                            <img src="https://images.unsplash.com/photo-1552519507-da3b142c6e3d?auto=format&fit=crop&w=300&q=80" alt="Mercedes">
+                            <img loading="lazy" src="lib/mercedes.jpg" alt="Mercedes">
                             <div class="heart-btn"><i class="far fa-heart"></i></div>
                         </div>
                         <div class="car-info-compact">
@@ -176,11 +231,11 @@
                          data-brand="Ferrari"
                          data-title="488 Spider"
                          data-price="₦250,000,000"
-                         data-img="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=600&q=80"
+                         data-img="lib/ferrari.jpg"
                          data-desc="Experience the thrill of open-top driving with the unparalleled Ferrari 488 Spider."
                          data-specs="Petrol | Auto | 661 HP">
                         <div class="car-img-container">
-                            <img src="https://images.unsplash.com/photo-1583121274602-3e2820c69888?auto=format&fit=crop&w=300&q=80" alt="Ferrari">
+                            <img loading="lazy" src="lib/ferrari.jpg" alt="Ferrari">
                             <div class="heart-btn"><i class="far fa-heart"></i></div>
                         </div>
                         <div class="car-info-compact">
@@ -196,11 +251,11 @@
                          data-brand="Ford"
                          data-title="Mustang GT"
                          data-price="₦45,000,000"
-                         data-img="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=600&q=80"
+                         data-img="lib/ford.jpg"
                          data-desc="American muscle at its finest. The Mustang GT delivers raw power and classic style."
                          data-specs="Petrol | Manual | 460 HP">
                         <div class="car-img-container">
-                            <img src="https://images.unsplash.com/photo-1494976388531-d1058494cdd8?auto=format&fit=crop&w=300&q=80" alt="Ford">
+                            <img loading="lazy" src="lib/ford.jpg" alt="Ford">
                             <div class="heart-btn"><i class="far fa-heart"></i></div>
                         </div>
                         <div class="car-info-compact">
@@ -216,11 +271,11 @@
                          data-brand="Lamborghini"
                          data-title="Urus"
                          data-price="₦220,000,000"
-                         data-img="https://images.unsplash.com/photo-1525609004556-c46c7d6cf0a3?auto=format&fit=crop&w=600&q=80"
+                         data-img="lib/lamborghini.jpg"
                          data-desc="The soul of a super sports car and the functionality of an SUV. The Urus is the world's first Super SUV."
                          data-specs="Petrol | Auto | 641 HP">
                         <div class="car-img-container">
-                            <img src="https://images.unsplash.com/photo-1525609004556-c46c7d6cf0a3?auto=format&fit=crop&w=300&q=80" alt="Lamborghini">
+                            <img loading="lazy" src="lib/lamborghini.jpg" alt="Lamborghini">
                             <div class="heart-btn"><i class="far fa-heart"></i></div>
                         </div>
                         <div class="car-info-compact">
@@ -236,11 +291,11 @@
                          data-brand="Audi"
                          data-title="R8 V10"
                          data-price="₦170,000,000"
-                         data-img="https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=600&q=80"
+                         data-img="lib/audi.jpg"
                          data-desc="Born on the track, built for the road. The Audi R8 V10 offers breathtaking performance."
                          data-specs="Petrol | Auto | 562 HP">
                         <div class="car-img-container">
-                            <img src="https://images.unsplash.com/photo-1542281286-9e0a16bb7366?auto=format&fit=crop&w=300&q=80" alt="Audi">
+                            <img loading="lazy" src="lib/audi.jpg" alt="Audi">
                             <div class="heart-btn"><i class="far fa-heart"></i></div>
                         </div>
                         <div class="car-info-compact">
@@ -256,7 +311,7 @@
                      data-brand="Land Rover"
                      data-title="Range Rover Vogue"
                      data-price="₦180,000,000"
-                     data-img="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=800&q=80"
+                     data-img="lib/range_rover.jpg"
                      data-desc="The pinnacle of luxury SUVs. The Range Rover Vogue offers peerless comfort and off-road capability."
                      data-specs="Diesel | Auto | 350 HP">
                     <div class="ad-content">
@@ -265,7 +320,7 @@
                         <p>Get 10% off your first luxury purchase</p>
                         <button class="btn-glow">Claim Now</button>
                     </div>
-                    <img src="https://images.unsplash.com/photo-1511919884226-fd3cad34687c?auto=format&fit=crop&w=400&q=80" alt="SUV">
+                    <img loading="lazy" src="lib/range_rover.jpg" alt="SUV">
                 </div>
             </section>
 
@@ -283,7 +338,7 @@
                         <!-- Chat Item 1 -->
                         <div class="chat-item" data-chat-id="1" data-product="Porsche 911" data-price="₦120M">
                             <div class="chat-item-img">
-                                <img src="https://images.unsplash.com/photo-1503376780353-7e6692767b70?auto=format&fit=crop&w=100&q=80" alt="Porsche">
+                                <img loading="lazy" src="lib/porsche.jpg" alt="Porsche">
                             </div>
                             <div class="chat-item-info">
                                 <div class="item-header">
@@ -298,7 +353,7 @@
                         <!-- Chat Item 2 -->
                         <div class="chat-item" data-chat-id="2" data-product="Agbo Power" data-price="₦25,000">
                             <div class="chat-item-img">
-                                <img src="https://images.unsplash.com/photo-1515486191131-8d672807e376?auto=format&fit=crop&w=100&q=80" alt="Herb">
+                                <img loading="lazy" src="lib/herb.jpg" alt="Herb">
                             </div>
                             <div class="chat-item-info">
                                 <div class="item-header">
@@ -317,7 +372,7 @@
                         <div class="chat-back-btn" id="chat-back"><i class="fas fa-chevron-left"></i></div>
                         <div class="chat-agent-info">
                             <div class="agent-avatar">
-                                <img id="room-product-img" src="https://ui-avatars.com/api/?name=Adex+Support&background=2563eb&color=fff" alt="Agent">
+                                <img id="room-product-img" src="Adewale.jpeg" alt="Agent">
                                 <div class="online-dot"></div>
                             </div>
                             <div>
@@ -358,11 +413,11 @@
                          data-brand="Herbal"
                          data-title="Pure Ginger"
                          data-price="₦15,000"
-                         data-img="https://images.unsplash.com/photo-1540348563548-69450438ec6e?auto=format&fit=crop&w=600&q=80"
+                         data-img="lib/ginger.jpg"
                          data-desc="100% organic Ginger extract. Ideal for digestive health and anti-inflammatory support."
                          data-specs="Organic | Raw | 250g">
                         <div class="herb-img-container">
-                            <img src="https://images.unsplash.com/photo-1540348563548-69450438ec6e?auto=format&fit=crop&w=300&q=80" alt="Ginger">
+                            <img loading="lazy" src="lib/ginger.jpg" alt="Ginger">
                         </div>
                         <div class="herb-info-compact">
                             <span class="category">Internal</span>
@@ -375,11 +430,11 @@
                          data-brand="Detox"
                          data-title="Zobo Extract"
                          data-price="₦12,000"
-                         data-img="https://images.unsplash.com/photo-1515486191131-8d672807e376?auto=format&fit=crop&w=600&q=80"
+                         data-img="lib/herb.jpg"
                          data-desc="Refreshing and healthy. Hibiscus extract rich in vitamin C and antioxidants."
                          data-specs="Cold Pressed | Vegan | 500ml">
                         <div class="herb-img-container">
-                            <img src="https://images.unsplash.com/photo-1515486191131-8d672807e376?auto=format&fit=crop&w=300&q=80" alt="Hibiscus">
+                            <img loading="lazy" src="lib/herb.jpg" alt="Hibiscus">
                         </div>
                         <div class="herb-info-compact">
                             <span class="category">Detox</span>
@@ -392,11 +447,11 @@
                          data-brand="Skincare"
                          data-title="Aloe Vera"
                          data-price="₦20,000"
-                         data-img="https://images.unsplash.com/photo-1615485290382-441e4d019cb5?auto=format&fit=crop&w=600&q=80"
+                         data-img="lib/aloe.jpg"
                          data-desc="Pure Aloe Vera gel for skin hydration and soothing relief from burns or irritations."
                          data-specs="Natural | Fragrance Free | 200ml">
                         <div class="herb-img-container">
-                            <img src="https://images.unsplash.com/photo-1615485290382-441e4d019cb5?auto=format&fit=crop&w=300&q=80" alt="Aloe">
+                            <img loading="lazy" src="lib/aloe.jpg" alt="Aloe">
                         </div>
                         <div class="herb-info-compact">
                             <span class="category">Skin</span>
@@ -409,11 +464,11 @@
                          data-brand="Strength"
                          data-title="Agbo Power"
                          data-price="₦25,000"
-                         data-img="https://images.unsplash.com/photo-1515486191131-8d672807e376?auto=format&fit=crop&w=300&q=80"
+                         data-img="lib/herb.jpg"
                          data-desc="A potent blend of traditional roots and herbs designed for maximum energy and immunity."
                          data-specs="Ancient Formula | High Potency | 1L">
                         <div class="herb-img-container">
-                            <img src="https://images.unsplash.com/photo-1515486191131-8d672807e376?auto=format&fit=crop&w=300&q=80" alt="Roots">
+                            <img loading="lazy" src="lib/herb.jpg" alt="Roots">
                         </div>
                         <div class="herb-info-compact">
                             <span class="category">Bones</span>
@@ -426,11 +481,11 @@
                          data-brand="Wellness"
                          data-title="Turmeric"
                          data-price="₦10,000"
-                         data-img="https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=600&q=80"
+                         data-img="lib/turmeric.jpg"
                          data-desc="High-curcumin Turmeric powder. Perfect for boosting immunity and joint health."
                          data-specs="Pure Powder | Non-GMO | 100g">
                         <div class="herb-img-container">
-                            <img src="https://images.unsplash.com/photo-1564419320461-6870880221ad?auto=format&fit=crop&w=300&q=80" alt="Turmeric">
+                            <img loading="lazy" src="lib/turmeric.jpg" alt="Turmeric">
                         </div>
                         <div class="herb-info-compact">
                             <span class="category">Immunity</span>
@@ -443,11 +498,11 @@
                          data-brand="Extracts"
                          data-title="Moringa Oil"
                          data-price="₦30,000"
-                         data-img="https://images.unsplash.com/photo-1628536340321-72921b7f9411?auto=format&fit=crop&w=600&q=80"
+                         data-img="lib/moringa.jpg"
                          data-desc="Cold-pressed Moringa oil, known as 'the miracle tree' oil, for hair and skin vitality."
                          data-specs="Cold Pressed | 100% Pure | 100ml">
                         <div class="herb-img-container">
-                            <img src="https://images.unsplash.com/photo-1628536340321-72921b7f9411?auto=format&fit=crop&w=300&q=80" alt="Moringa">
+                            <img loading="lazy" src="lib/moringa.jpg" alt="Moringa">
                         </div>
                         <div class="herb-info-compact">
                             <span class="category">General</span>
@@ -476,14 +531,14 @@
                 <div class="profile-container">
                     <!-- Profile Cover -->
                     <div class="profile-cover">
-                        <img src="https://images.unsplash.com/photo-1492144534655-ae79c964c9d7?auto=format&fit=crop&w=800&q=80" alt="Cover">
+                        <img loading="lazy" src="lib/cover.jpg" alt="Cover">
                         <button class="edit-cover-btn"><i class="fas fa-camera"></i></button>
                     </div>
 
                     <div class="profile-header-main">
                         <div class="profile-avatar-wrapper">
                             <div class="profile-avatar">
-                                <img src="https://ui-avatars.com/api/?name=Adex+Moshow&background=eff6ff&color=2563eb&size=200" alt="User">
+                                <img src="Adewale.jpeg" alt="User">
                             </div>
                             <div class="online-indicator"></div>
                             <button class="edit-avatar-btn"><i class="fas fa-pen"></i></button>
@@ -735,8 +790,6 @@
         </div>
     </div>
 
-    <!-- Three.js for 3D Background -->
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/build/three.min.js" crossorigin="anonymous"></script>
-    <script src="script.js"></script>
+    <script defer src="script.js"></script>
 </body>
 </html>

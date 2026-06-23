@@ -171,7 +171,7 @@ contentArea.addEventListener('scroll', () => {
     }, 150); // 150ms after scrolling stops
 }, { passive: true });
 
-// Pull to Refresh Logic
+// Pull to Refresh Logic (Reduced Sensitivity)
 const pullRefresh = document.querySelector('#pull-to-refresh');
 let touchStart = 0;
 let touchDiff = 0;
@@ -182,22 +182,24 @@ contentArea.addEventListener('touchstart', (e) => {
 
 contentArea.addEventListener('touchmove', (e) => {
     if (contentArea.scrollTop === 0) {
-        touchDiff = e.touches[0].clientY - touchStart;
-        if (touchDiff > 0 && touchDiff < 100) {
+        let currentTouch = e.touches[0].clientY;
+        // Apply a resistance factor (0.4) so it moves slower than the finger
+        touchDiff = (currentTouch - touchStart) * 0.4;
+
+        if (touchDiff > 0 && touchDiff < 150) {
             pullRefresh.style.transform = `translateY(${touchDiff}px)`;
         }
     }
-});
+}, { passive: true });
 
 contentArea.addEventListener('touchend', () => {
-    if (touchDiff > 70 && contentArea.scrollTop === 0) {
-        // Trigger Refresh
-        pullRefresh.style.transform = 'translateY(80px)';
+    // Increased threshold from 70 to 110 for reduced sensitivity
+    if (touchDiff > 110 && contentArea.scrollTop === 0) {
+        pullRefresh.style.transform = 'translateY(100px)';
 
         if (window.navigator.vibrate) window.navigator.vibrate(20);
 
         setTimeout(() => {
-            // Simulate page reload/refresh
             window.location.reload();
         }, 800);
     } else {

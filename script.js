@@ -149,6 +149,28 @@ function init3D() {
     animate();
 }
 
+// Scroll Auto-Hide Logic for Header and Bottom Nav
+const contentArea = document.querySelector('#content');
+const header = document.querySelector('header');
+const bottomNav = document.querySelector('.bottom-nav');
+let isScrolling;
+
+contentArea.addEventListener('scroll', () => {
+    // Hide tabs when scrolling starts
+    header.classList.add('nav-hidden');
+    bottomNav.classList.add('nav-hidden');
+
+    // Clear our timeout throughout the scroll
+    window.clearTimeout(isScrolling);
+
+    // Set a timeout to run after scrolling ends
+    isScrolling = setTimeout(() => {
+        // Show tabs when scrolling stops
+        header.classList.remove('nav-hidden');
+        bottomNav.classList.remove('nav-hidden');
+    }, 150); // 150ms after scrolling stops
+}, { passive: true });
+
 // Start 3D background
 init3D();
 

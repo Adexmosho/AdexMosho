@@ -1,0 +1,32 @@
+<svg width="512" height="512" viewBox="0 0 512 512" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="paint0_linear" x1="0" y1="0" x2="512" y2="512" gradientUnits="userSpaceOnUse">
+      <stop offset="0" stop-color="#2563eb"/>
+      <stop offset="1" stop-color="#10b981"/>
+    </linearGradient>
+    <filter id="shadow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur in="SourceAlpha" stdDeviation="10"/>
+      <feOffset dx="0" dy="10" result="offsetblur"/>
+      <feComponentTransfer>
+        <feFuncA type="linear" slope="0.3"/>
+      </feComponentTransfer>
+      <feMerge>
+        <feMergeNode/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+
+  <!-- Background -->
+  <rect width="512" height="512" rx="128" fill="url(#paint0_linear)"/>
+
+  <!-- Car Silhouette -->
+  <path d="M120 280C120 260 140 240 180 230L220 180H340L380 230C420 240 440 260 440 280V320H420V340H380V320H180V340H140V320H120V280Z" fill="white" filter="url(#shadow)"/>
+
+  <!-- Leaf/Herb Detail -->
+  <path d="M300 380C300 380 340 380 360 340C380 300 350 260 350 260C350 260 310 270 290 310C270 350 300 380 300 380Z" fill="#ffffff" opacity="0.9" />
+  <path d="M300 380L350 260" stroke="#10b981" stroke-width="4" stroke-linecap="round"/>
+
+  <!-- Text Branding -->
+  <text x="256" y="460" font-family="Arial, sans-serif" font-size="64" font-weight="900" fill="white" text-anchor="middle" letter-spacing="2">ADEX MOSHO</text>
+</svg>

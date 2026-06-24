@@ -160,9 +160,24 @@
                 <div class="contact-preview">
                     <h3>Need Assistance?</h3>
                     <p>Our experts are available 24/7 for consultations.</p>
+                    <p class="address-line"><i class="fas fa-map-marker-alt"></i>
+                        <a href="https://www.google.com/maps/search/?api=1&query=32+Soji-Oshodi+street+shomolu+Lagos" target="_blank" rel="noopener">32 Soji-Oshodi street, Shomolu, Lagos</a>
+                    </p>
+
+                    <div class="map-embed">
+                        <iframe
+                            src="https://www.google.com/maps?q=32+Soji-Oshodi+street+shomolu+Lagos&output=embed"
+                            loading="lazy"
+                            referrerpolicy="no-referrer-when-downgrade"
+                            aria-hidden="false"
+                            title="AdexMoshow Location">
+                        </iframe>
+                    </div>
+
                     <div class="hero-btns">
                         <button class="btn-glow outline small" onclick="window.location.href='tel:+2348028765972'"><i class="fas fa-phone-alt"></i> Call</button>
                         <button class="btn-glow secondary small" onclick="window.location.href='https://wa.me/2348028765972'"><i class="fab fa-whatsapp"></i> WhatsApp</button>
+                        <button class="btn-glow outline small" onclick="window.open('https://www.google.com/maps/search/?api=1&query=32+Soji-Oshodi+street+shomolu+Lagos','_blank')"><i class="fas fa-map-marker-alt"></i> View on Map</button>
                     </div>
                 </div>
             </section>
@@ -702,9 +717,64 @@
                 <i class="fas fa-user"></i>
                 <span>Profile</span>
             </div>
+            <div class="nav-item" data-target="admin">
+                <i class="fas fa-crown"></i>
+                <span>Admin</span>
+            </div>
             <div class="nav-indicator"></div>
         </nav>
     </div>
+
+    <!-- Admin Page -->
+    <section id="admin" class="page">
+        <div class="page-header-flex">
+            <h2 class="section-title">Admin Console</h2>
+            <div class="filter-icon"><i class="fas fa-tools"></i></div>
+        </div>
+
+        <div class="admin-tabs">
+            <button class="admin-tab active" data-admin="ads">Ads</button>
+            <button class="admin-tab" data-admin="users">Users</button>
+            <button class="admin-tab" data-admin="messages">Messages</button>
+            <button class="admin-tab" data-admin="settings">Settings</button>
+        </div>
+
+        <div class="admin-panels">
+            <div id="admin-ads" class="admin-panel active">
+                <div class="floating-card">
+                    <h3>Post New Ad</h3>
+                    <input id="admin-ad-title" placeholder="Title" />
+                    <textarea id="admin-ad-desc" placeholder="Description"></textarea>
+                    <input id="admin-ad-img" placeholder="Image URL (optional)" />
+                    <div style="margin-top:10px;"><button id="admin-post-ad" class="btn-glow">Post Ad</button></div>
+                </div>
+
+                <div id="admin-ads-list" class="floating-card" style="margin-top:16px;"></div>
+            </div>
+
+            <div id="admin-users" class="admin-panel">
+                <div class="floating-card">
+                    <h3>Registered Users</h3>
+                    <div id="admin-users-list"></div>
+                </div>
+            </div>
+
+            <div id="admin-messages" class="admin-panel">
+                <div class="floating-card">
+                    <h3>Conversations</h3>
+                    <div id="admin-msg-list" style="max-height:50vh;overflow:auto"></div>
+                    <div style="margin-top:12px;"><input id="admin-msg-reply" placeholder="Reply to selected" /><button id="admin-send-reply" class="btn-glow">Send</button></div>
+                </div>
+            </div>
+
+            <div id="admin-settings" class="admin-panel">
+                <div class="floating-card">
+                    <h3>Settings</h3>
+                    <p>Frontend-only admin console. To enable cross-device sync, connect a backend or Firebase.</p>
+                </div>
+            </div>
+        </div>
+    </section>
 
     <!-- Advanced Filter Drawer -->
     <div id="filter-drawer" class="drawer-overlay">

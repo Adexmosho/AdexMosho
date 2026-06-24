@@ -398,6 +398,20 @@ header.nav-hidden {
     background: radial-gradient(circle at top left, rgba(96, 165, 250, 0.18), transparent 25%), radial-gradient(circle at bottom right, rgba(16, 185, 129, 0.14), transparent 22%);
 }
 
+/* Admin page styles */
+.admin-tabs { display:flex;gap:10px;margin-bottom:12px }
+.admin-tab{padding:8px 12px;border-radius:12px;background:rgba(255,255,255,0.6);cursor:pointer}
+.admin-tab.active{background:linear-gradient(90deg,var(--primary),var(--secondary));color:#fff}
+.admin-panels .admin-panel{display:none}
+.admin-panels .admin-panel.active{display:block}
+.admin-ad-row{padding:10px;border-bottom:1px solid #f0f3f7}
+.admin-user-row{padding:10px;border-bottom:1px solid #f0f3f7}
+.admin-msg-row{padding:10px;border-bottom:1px dashed #eef2ff}
+
+/* Ensure nav spacing for new item */
+.bottom-nav { z-index: 900; }
+
+
 .startup-card > * {
     position: relative;
     z-index: 1;
@@ -783,6 +797,37 @@ header.nav-hidden {
     font-size: 0.75rem;
     color: var(--text-dim);
     display: block;
+}
+
+/* Address and map preview styling */
+.address-line {
+    color: var(--text-dim);
+    margin: 12px 0 8px;
+    font-size: 0.95rem;
+}
+.address-line a {
+    color: var(--primary);
+    text-decoration: none;
+    font-weight: 700;
+    margin-left: 8px;
+}
+.map-embed {
+    width: 100%;
+    border-radius: 12px;
+    overflow: hidden;
+    box-shadow: var(--shadow-soft);
+    border: 1px solid rgba(0,0,0,0.04);
+    margin: 10px 0 16px;
+}
+.map-embed iframe {
+    width: 100%;
+    height: 180px;
+    border: 0;
+    display: block;
+}
+
+@media (max-width: 480px) {
+    .map-embed iframe { height: 140px; }
 }
 
 .detail-item p {

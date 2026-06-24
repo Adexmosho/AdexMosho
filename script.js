@@ -487,3 +487,175 @@ chatInput.addEventListener('keypress', (e) => {
         sendMessageBtn.click();
     }
 });
+
+/* -------------------- Admin Console (localStorage-backed) -------------------- */
+// Basic storage helpers
+const STORAGE_KEYS = { ADS: 'adex_ads_v1', USERS: 'adex_users_v1', MESSAGES: 'adex_msgs_v1' };
+
+function loadFromStorage(key, fallback) {
+    try {
+        const raw = localStorage.getItem(key);
+        if (raw) return JSON.parse(raw);
+    } catch (e) { console.warn('load error', e); }
+    return fallback;
+}
+
+function saveToStorage(key, value) {
+    try { localStorage.setItem(key, JSON.stringify(value)); } catch (e) { console.warn('save error', e); }
+}
+
+// Seed default data if missing
+function seedFrontendData() {
+    const existing = loadFromStorage(STORAGE_KEYS.ADS, null);
+    if (!existing) {
+        const seedAds = [
+            { id: 'ad-1', title: 'Sample Car A', desc: 'A beautiful car', img: 'lib/porsche.jpg' },
+            { id: 'ad-2', title: 'Sample Herb B', desc: 'Organic herbal remedy', img: 'lib/herb.jpg' }
+        ];
+        saveToStorage(STORAGE_KEYS.ADS, seedAds);
+    }
+
+    const users = loadFromStorage(STORAGE_KEYS.USERS, null);
+    if (!users) {
+        const seedUsers = Array.from({ length: 8 }).map((_, i) => ({ id: `u-${i+1}`, name: `User ${i+1}`, email: `user${i+1}@example.com` }));
+        saveToStorage(STORAGE_KEYS.USERS, seedUsers);
+    }
+
+    const msgs = loadFromStorage(STORAGE_KEYS.MESSAGES, null);
+    if (!msgs) {
+        const seedMsgs = [{ id: 'm-1', from: 'web_user@site', to: 'admin', text: 'Is this still available?', time: Date.now() }];
+        saveToStorage(STORAGE_KEYS.MESSAGES, seedMsgs);
+    }
+}
+
+function renderSiteAds() {
+    const ads = loadFromStorage(STORAGE_KEYS.ADS, []);
+    const grid = document.querySelector('.car-grid-3');
+    if (!grid) return;
+    // replace existing cards with serialized ads
+    grid.innerHTML = '';
+    ads.forEach(ad => {
+        const card = document.createElement('div');
+        card.className = 'card car-compact clickable-product';
+        card.setAttribute('data-brand', 'Adex');
+        card.setAttribute('data-title', ad.title);
+        card.setAttribute('data-price', '₦--');
+        card.setAttribute('data-img', ad.img || 'Adewale.jpeg');
+        card.setAttribute('data-desc', ad.desc);
+        card.innerHTML = `
+            <div class="car-img-container"><img loading="lazy" src="${ad.img || 'Adewale.jpeg'}" alt="${ad.title}"></div>
+            <div class="car-info-compact"><span class="brand">Adex</span><h4>${ad.title}</h4><p class="price-sm">₦--</p></div>
+        `;
+        grid.appendChild(card);
+        // attach click behavior
+        card.addEventListener('click', () => {
+            const clickEv = new Event('click');
+            card.dispatchEvent(clickEv);
+        });
+    });
+}
+
+function renderAdminAdsList() {
+    const adminList = document.querySelector('#admin-ads-list');
+    if (!adminList) return;
+    const ads = loadFromStorage(STORAGE_KEYS.ADS, []);
+    adminList.innerHTML = '';
+    ads.forEach(ad => {
+        const el = document.createElement('div');
+        el.className = 'admin-ad-row';
+        el.innerHTML = `<strong>${ad.title}</strong><div>${ad.desc}</div><div style="margin-top:6px;"><button class='btn-glow admin-del' data-id='${ad.id}'>Delete</button></div>`;
+        adminList.appendChild(el);
+    });
+    document.querySelectorAll('.admin-del').forEach(b => b.addEventListener('click', (ev) => {
+        const id = ev.currentTarget.getAttribute('data-id');
+        const list = loadFromStorage(STORAGE_KEYS.ADS, []).filter(a => a.id !== id);
+        saveToStorage(STORAGE_KEYS.ADS, list);
+        renderAdminAdsList(); renderSiteAds();
+    }));
+}
+
+function renderAdminUsers() {
+    const el = document.querySelector('#admin-users-list');
+    if (!el) return;
+    const users = loadFromStorage(STORAGE_KEYS.USERS, []);
+    el.innerHTML = '';
+    users.forEach(u => {
+        const row = document.createElement('div');
+        row.className = 'admin-user-row';
+        row.innerHTML = `<strong>${u.name}</strong> — ${u.email} <button class='btn-glow admin-user-del' data-id='${u.id}'>Remove</button>`;
+        el.appendChild(row);
+    });
+    document.querySelectorAll('.admin-user-del').forEach(b => b.addEventListener('click', (ev) => {
+        const id = ev.currentTarget.getAttribute('data-id');
+        const list = loadFromStorage(STORAGE_KEYS.USERS, []).filter(x => x.id !== id);
+        saveToStorage(STORAGE_KEYS.USERS, list);
+        renderAdminUsers();
+    }));
+}
+
+function renderAdminMessages() {
+    const el = document.querySelector('#admin-msg-list');
+    if (!el) return;
+    const msgs = loadFromStorage(STORAGE_KEYS.MESSAGES, []);
+    el.innerHTML = '';
+    msgs.forEach(m => {
+        const row = document.createElement('div');
+        row.className = 'admin-msg-row';
+        row.innerHTML = `<div><strong>${m.from}</strong>: ${m.text}</div><div style="margin-top:6px;"><button class='btn-glow admin-reply' data-id='${m.id}'>Reply</button></div>`;
+        el.appendChild(row);
+    });
+    document.querySelectorAll('.admin-reply').forEach(b => b.addEventListener('click', (ev) => {
+        const id = ev.currentTarget.getAttribute('data-id');
+        document.querySelector('#admin-msg-reply').dataset.replyTo = id;
+        document.querySelector('#admin-msg-reply').focus();
+    }));
+}
+
+// Admin form handlers
+document.addEventListener('DOMContentLoaded', () => {
+    seedFrontendData();
+    renderSiteAds(); renderAdminAdsList(); renderAdminUsers(); renderAdminMessages();
+
+    const postBtn = document.querySelector('#admin-post-ad');
+    if (postBtn) postBtn.addEventListener('click', () => {
+        const title = document.querySelector('#admin-ad-title').value.trim();
+        const desc = document.querySelector('#admin-ad-desc').value.trim();
+        const img = document.querySelector('#admin-ad-img').value.trim();
+        if (!title) return alert('Title required');
+        const ads = loadFromStorage(STORAGE_KEYS.ADS, []);
+        const id = `ad-${Date.now()}`;
+        ads.unshift({ id, title, desc, img });
+        saveToStorage(STORAGE_KEYS.ADS, ads);
+        document.querySelector('#admin-ad-title').value = '';
+        document.querySelector('#admin-ad-desc').value = '';
+        document.querySelector('#admin-ad-img').value = '';
+        renderAdminAdsList(); renderSiteAds();
+        alert('Ad posted locally. To sync across devices, connect a backend.');
+    });
+
+    const sendReply = document.querySelector('#admin-send-reply');
+    if (sendReply) sendReply.addEventListener('click', () => {
+        const replyEl = document.querySelector('#admin-msg-reply');
+        const replyTo = replyEl.dataset.replyTo;
+        const text = replyEl.value.trim();
+        if (!text) return;
+        const msgs = loadFromStorage(STORAGE_KEYS.MESSAGES, []);
+        msgs.push({ id: `m-${Date.now()}`, from: 'admin', to: replyTo || 'web', text, time: Date.now() });
+        saveToStorage(STORAGE_KEYS.MESSAGES, msgs);
+        replyEl.value = '';
+        renderAdminMessages();
+        alert('Reply added locally. Implement backend to deliver to website users.');
+    });
+
+    // Admin tab switching
+    const adminTabs = document.querySelectorAll('.admin-tab');
+    adminTabs.forEach(t => t.addEventListener('click', () => {
+        adminTabs.forEach(x => x.classList.remove('active'));
+        t.classList.add('active');
+        const target = t.getAttribute('data-admin');
+        document.querySelectorAll('.admin-panel').forEach(p => p.classList.remove('active'));
+        document.querySelector(`#admin-${target}`).classList.add('active');
+    }));
+});
+
+/* -------------------- End Admin Console -------------------- */
